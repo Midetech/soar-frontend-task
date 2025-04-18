@@ -20,7 +20,7 @@ const SiderbarLink = ({
     <Link href={link.url}>
       <div
         className={cn(
-          "w-[250px] h-[60px] text-lg flex gap-[26px]",
+          "w-[250px] h-[60px] text-lg flex gap-[26px] hover:text-[#232323]/80",
           !isActive ? "text-[#B1B1B1]" : "text-[#232323]"
         )}
       >

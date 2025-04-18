@@ -164,7 +164,7 @@ const Security = ({
         </div>
       </motion.div>
 
-      <mdiv
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
@@ -196,7 +196,7 @@ const Security = ({
             Manage All Devices
           </Button>
         </div>
-      </mdiv>
+      </motion.div>
     </motion.div>
   );
 };
