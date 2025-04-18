@@ -75,6 +75,9 @@ const WeeklyActivity = () => {
       },
     },
     plugins: {
+      datalabels: {
+        display: false,
+      },
       legend: {
         position: "top" as const,
         align: "end" as const,
@@ -84,29 +87,29 @@ const WeeklyActivity = () => {
           boxWidth: 8,
         },
       },
-      tooltip: {
-        backgroundColor: "white",
-        titleColor: "#333",
-        bodyColor: "#333",
-        titleFont: {
-          size: 13,
-          weight: 700,
-        },
-        bodyFont: {
-          size: 12,
-        },
-        padding: 10,
-        borderColor: "#e0e0e0",
-        borderWidth: 1,
-        callbacks: {
-          title: function (context: { label: any }[]) {
-            return context[0].label;
-          },
-          label: function (context: any) {
-            return `${context.dataset.label}: $${context.raw}`;
-          },
-        },
-      },
+      // tooltip: {
+      //   backgroundColor: "white",
+      //   titleColor: "#333",
+      //   bodyColor: "#333",
+      //   titleFont: {
+      //     size: 13,
+      //     weight: 700,
+      //   },
+      //   bodyFont: {
+      //     size: 12,
+      //   },
+      //   padding: 10,
+      //   borderColor: "#e0e0e0",
+      //   borderWidth: 1,
+      //   callbacks: {
+      //     title: function (context: { label: any }[]) {
+      //       return context[0].label;
+      //     },
+      //     label: function (context: any) {
+      //       return `${context.dataset.label}: $${context.raw}`;
+      //     },
+      //   },
+      // },
     },
   };
 

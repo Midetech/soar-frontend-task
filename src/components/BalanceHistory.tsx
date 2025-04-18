@@ -83,6 +83,9 @@ const LineChart = () => {
       },
     },
     plugins: {
+      datalabels: {
+        display: false,
+      },
       legend: {
         display: false,
       },
