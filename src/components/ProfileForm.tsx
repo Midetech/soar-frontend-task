@@ -80,7 +80,7 @@ const ProfileForm = ({
   tabVariants,
 }: {
   imageUrl: string;
-  tabVariants: any;
+  tabVariants: never;
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

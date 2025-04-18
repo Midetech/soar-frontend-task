@@ -27,7 +27,7 @@ const Security = ({
   setSnableBiometrics: (value: boolean) => void;
   showPassword: boolean;
   setShowPassword: (value: boolean) => void;
-  tabVariants: any;
+  tabVariants: never;
 }) => {
   return (
     <motion.div

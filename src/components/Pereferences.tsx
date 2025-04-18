@@ -1,6 +1,6 @@
 import { Bell, ChevronRight, CreditCard, Globe, User } from "lucide-react";
 import { motion } from "framer-motion";
-const Preferences = ({ tabVariants }) => {
+const Preferences = ({ tabVariants }: { tabVariants: never }) => {
   return (
     <motion.div
       key="preferences"

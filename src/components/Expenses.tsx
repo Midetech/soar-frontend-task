@@ -10,7 +10,7 @@ import {
   Title,
 } from "chart.js";
 import { Pie } from "react-chartjs-2";
-
+import ChartDataLabels from "chartjs-plugin-datalabels";
 // Register Chart.js components
 ChartJS.register(
   CategoryScale,
@@ -20,7 +20,8 @@ ChartJS.register(
   ChartTooltip,
   Legend,
   ArcElement,
-  Colors
+  Colors,
+  ChartDataLabels
 );
 
 const ExpenseDashboard = () => {
@@ -37,7 +38,7 @@ const ExpenseDashboard = () => {
         ],
         borderWidth: 0,
         spacing: 10,
-        offset: [20, 20, 20, 20],
+        offset: 20,
       },
     ],
   };
@@ -46,6 +47,29 @@ const ExpenseDashboard = () => {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
+      datalabels: {
+        color: "#fff",
+        formatter: (
+          value: number,
+          ctx: {
+            chart: { data: { labels: { [x: string]: string } } };
+            dataIndex: string | number;
+          }
+        ) => {
+          const label = ctx.chart.data.labels?.[ctx.dataIndex] || "";
+          return `${
+            label === "Others"
+              ? `\u00A0\u00A0\u00A0`
+              : `\u00A0\u00A0\u00A0\u00A0\u00A0`
+          }${value}%\n${label}`;
+        },
+        font: {
+          weight: "bold",
+          size: 8,
+        },
+        align: "center",
+        anchor: "center",
+      },
       legend: {
         display: false,
       },
@@ -74,7 +98,14 @@ const ExpenseDashboard = () => {
     },
   };
 
-  return <Pie data={pieData} options={pieOptions} />;
+  return (
+    <Pie data={pieData} options={pieOptions}>
+      {" "}
+      {pieData.labels.map((entry, index) => (
+        <p key={index}>{entry}</p>
+      ))}
+    </Pie>
+  );
 };
 
 export default ExpenseDashboard;
