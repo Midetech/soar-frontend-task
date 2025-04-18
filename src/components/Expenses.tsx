@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ArcElement,
   BarElement,
@@ -49,14 +50,9 @@ const ExpenseDashboard = () => {
     plugins: {
       datalabels: {
         color: "#fff",
-        formatter: (
-          value: number,
-          ctx: {
-            chart: { data: { labels: { [x: string]: string } } };
-            dataIndex: string | number;
-          }
-        ) => {
-          const label = ctx.chart.data.labels?.[ctx.dataIndex] || "";
+        formatter: (value: number, context: any) => {
+          const labels = context.chart.data.labels as string[] | undefined;
+          const label = labels?.[context.dataIndex] || "";
           return `${
             label === "Others"
               ? `\u00A0\u00A0\u00A0`
@@ -64,11 +60,11 @@ const ExpenseDashboard = () => {
           }${value}%\n${label}`;
         },
         font: {
-          weight: "bold",
+          weight: 700,
           size: 8,
         },
-        align: "center",
-        anchor: "center",
+        align: "center" as const,
+        anchor: "center" as const,
       },
       legend: {
         display: false,
@@ -98,14 +94,7 @@ const ExpenseDashboard = () => {
     },
   };
 
-  return (
-    <Pie data={pieData} options={pieOptions}>
-      {" "}
-      {pieData.labels.map((entry, index) => (
-        <p key={index}>{entry}</p>
-      ))}
-    </Pie>
-  );
+  return <Pie data={pieData} options={pieOptions} />;
 };
 
 export default ExpenseDashboard;

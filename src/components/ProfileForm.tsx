@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { countries } from "components/constants/countries";
 import { profileFormFields } from "components/constants/profile-form";
@@ -80,7 +81,7 @@ const ProfileForm = ({
   tabVariants,
 }: {
   imageUrl: string;
-  tabVariants: never;
+  tabVariants: any;
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

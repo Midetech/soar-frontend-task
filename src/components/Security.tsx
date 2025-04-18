@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from "components/lib/utils";
 import {
   ChevronRight,
@@ -27,7 +28,7 @@ const Security = ({
   setSnableBiometrics: (value: boolean) => void;
   showPassword: boolean;
   setShowPassword: (value: boolean) => void;
-  tabVariants: never;
+  tabVariants: any;
 }) => {
   return (
     <motion.div

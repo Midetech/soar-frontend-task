@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Bell, ChevronRight, CreditCard, Globe, User } from "lucide-react";
 import { motion } from "framer-motion";
-const Preferences = ({ tabVariants }: { tabVariants: never }) => {
+const Preferences = ({ tabVariants }: { tabVariants: any }) => {
   return (
     <motion.div
       key="preferences"
