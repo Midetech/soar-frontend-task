@@ -6,6 +6,8 @@ A modern web application built with Next.js, TypeScript, and Tailwind CSS.
 
 - **Framework**: Next.js 15.3.1
 - **Language**: TypeScript
+- **Runtime**: Node.js
+- **UI Library**: React 18.2.0
 - **Styling**: Tailwind CSS 4
 - **State Management**: React Query (TanStack Query) & SWR
 - **Form Handling**: React Hook Form with Zod validation
@@ -124,3 +126,24 @@ src/
 ## 📄 License
 
 [Add your license information here]
+
+## 🚨 Troubleshooting
+
+### Build Issues
+
+If you encounter build errors related to Radix UI components, ensure you're using the correct versions:
+
+1. React and React DOM should be version 18.2.0
+2. Type definitions (@types/react and @types/react-dom) should match React version
+3. Run `npm install` or `yarn install` after version changes
+
+### Common Issues
+
+1. **Radix UI Compatibility**: The project uses React 18.2.0 for better compatibility with Radix UI components. Using React 19 may cause build errors.
+
+2. **TypeScript Errors**: If you encounter TypeScript errors, ensure all type definitions are properly installed and match the React version.
+
+3. **Build Failures**: If the build fails, try:
+   - Clearing the `.next` directory
+   - Running `npm install` or `yarn install` again
+   - Checking for version mismatches in package.json
