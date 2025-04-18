@@ -20,5 +20,22 @@ export async function GET() {
             balance: 1420.10,
             currency: 'USD',
         },
+        {
+            id: 'card_3',
+            cardType: 'Mastercard Business',
+            cardHolder: "Sunday Olomitutu",
+            cardNumber: '3455 **** **** 5678',
+            expiry: '09/25',
+            balance: 1420.10,
+            currency: 'USD',
+        }, {
+            id: 'card_4',
+            cardType: 'Mastercard Business',
+            cardHolder: "Sunday Olomitutu",
+            cardNumber: '3455 **** **** 5678',
+            expiry: '09/25',
+            balance: 1420.10,
+            currency: 'USD',
+        },
     ]);
 }

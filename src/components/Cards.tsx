@@ -37,7 +37,7 @@ const Cards = ({
               }}
               key={card.id}
               className={cn(
-                "md:w-1/2 w-[265px] pt-6 pb-0 md:h-[235px] shrink-0 lg:shrink gap-[23px]",
+                "md:w-1/2 w-[265px] pt-6 pb-0 md:h-[235px] shrink-0 lg:shrink gap-[23px] xl:shrink-0 xl:w-[365px]",
                 activeCard === card.id
                   ? " text-white"
                   : "border !border-[#DFEAF2] text-[#343C6A] "

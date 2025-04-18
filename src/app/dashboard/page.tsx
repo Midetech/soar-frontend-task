@@ -246,11 +246,7 @@ const Page = () => {
         className="grid xl:grid-cols-3 grid-cols-1 gap-6"
         variants={containerVariants}
       >
-        <motion.div
-          whileHover={cardVariants.hover}
-          variants={itemVariants}
-          className="col-span-2"
-        >
+        <motion.div variants={itemVariants} className="col-span-2">
           <AnimatePresence mode="wait">
             <WeeklyActivity />
           </AnimatePresence>

@@ -25,6 +25,7 @@ import {
   SelectValue,
 } from "./ui/select";
 import { motion } from "framer-motion";
+import { Label } from "./ui/label";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -79,9 +80,11 @@ const formSchema = z.object({
 const ProfileForm = ({
   imageUrl,
   tabVariants,
+  setImageUrl,
 }: {
   imageUrl: string;
   tabVariants: any;
+  setImageUrl: (url: string) => void;
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -104,6 +107,13 @@ const ProfileForm = ({
     console.log(values);
   }
 
+  const handleImageUpload = (e: any) => {
+    const file = e.target.files[0];
+    if (file && file.type.substring(0, 5) === "image") {
+      setImageUrl(file);
+    }
+  };
+
   return (
     <motion.div
       key="preferences"
@@ -115,12 +125,29 @@ const ProfileForm = ({
     >
       <div className="size-[98px] relative">
         <Avatar className="xl:size-[94px] size-[50px]">
-          <AvatarImage src={imageUrl} alt="Sunday Olomitutu" />
+          <AvatarImage
+            src={
+              typeof imageUrl === "string"
+                ? imageUrl
+                : URL.createObjectURL(imageUrl)
+            }
+            alt="Sunday Olomitutu"
+          />
           <AvatarFallback>SO</AvatarFallback>
         </Avatar>
-        <Button className="size-[30px] rounded-[30px] absolute xl:top-16 -right-1.5">
-          <Icons.PenIcon />
-        </Button>
+
+        <Input
+          id="image"
+          type="file"
+          onChange={handleImageUpload}
+          className="hidden"
+          accept="image/*"
+        />
+        <Label htmlFor="image">
+          <div className="size-[30px] rounded-[30px] absolute xl:top-16 -right-1.5 bg-black flex justify-center items-center cursor-pointer hover:bg-[#1E1E1E] transition-all duration-200">
+            <Icons.PenIcon />
+          </div>
+        </Label>
       </div>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
