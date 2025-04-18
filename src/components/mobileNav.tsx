@@ -9,7 +9,9 @@ const MobileNav = ({ activeModule }: { activeModule: string }) => {
       <div className="w-full flex justify-between items-center bg-white">
         <Icons.HamburgerIcon />
         <p className="xl:text-[28px] text-xl text-[#343C6A] font-semibold capitalize">
-          {activeModule === "dashboard" ? "Overview" : activeModule}
+          {activeModule === "dashboard"
+            ? "Overview"
+            : activeModule.replace(/-/g, " ")}
         </p>
 
         <Avatar className="xl:size-[60px] size-[35px]">

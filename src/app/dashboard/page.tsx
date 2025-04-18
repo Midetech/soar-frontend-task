@@ -3,7 +3,7 @@ import Cards from "components/components/Cards";
 import { Icons } from "components/components/icons";
 import Typography from "components/components/Typography";
 import { Card } from "components/components/ui/card";
-import UserScroller from "components/components/Users";
+import UsersComponent from "components/components/Users";
 import WeeklyActivity from "components/components/WeeklyActivity";
 import { CardDetail } from "components/interfaces/card";
 import { Transaction } from "components/interfaces/transaction";
@@ -14,6 +14,7 @@ import useSWR from "swr";
 import SkeletonLoader from "components/components/SkeletonLoader";
 import BalanceHistory from "components/components/BalanceHistory";
 import ExpenseDashboard from "components/components/Expenses";
+import { User } from "components/interfaces/user";
 
 // Animation variants
 const containerVariants = {
@@ -63,7 +64,7 @@ const Page = () => {
     fetcher
   );
 
-  const [activeUser, setActiveUser] = React.useState<string | null>(null);
+  const [activeUser, setActiveUser] = React.useState<User | null>(null);
   const [activeCard, setActiveCard] = React.useState<number | null>(null);
 
   React.useEffect(() => {
@@ -74,7 +75,7 @@ const Page = () => {
 
   React.useEffect(() => {
     if (users) {
-      setActiveUser(users[0]?.id);
+      setActiveUser(users[0]);
     }
   }, [users]);
 
@@ -292,7 +293,7 @@ const Page = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
-                <UserScroller {...{ users, activeUser, setActiveUser }} />
+                <UsersComponent {...{ users, activeUser, setActiveUser }} />
               </motion.div>
             )}
           </AnimatePresence>

@@ -9,15 +9,15 @@ const UserCard = ({
   setActiveUser,
 }: {
   user: User;
-  activeUser: string | null;
-  setActiveUser: React.Dispatch<React.SetStateAction<string | null>>;
+  activeUser: User | null;
+  setActiveUser: React.Dispatch<React.SetStateAction<User | null>>;
 }) => {
   return (
     <div
-      onClick={() => setActiveUser(user.id)}
+      onClick={() => setActiveUser(user)}
       className={cn(
         "flex justify-center items-center flex-col w-[94] ",
-        activeUser === user.id ? "font-bold" : "font-normal"
+        activeUser?.id === user.id ? "font-bold" : "font-normal"
       )}
     >
       <Avatar className="xl:size-[94px] size-[50px]">

@@ -17,7 +17,9 @@ const Header = () => {
     <>
       <div className="h-[100px]  bg-white lg:flex items-center gap-x-[85px] justify-between lg:px-10 md:px-16 px-4 border-b border-b-[#E6EFF5] w-full sticky top-0 z-10 hidden">
         <p className="xl:text-[28px] text-xl text-[#343C6A] font-semibold capitalize">
-          {activeModule === "dashboard" ? "Overview" : activeModule}
+          {activeModule === "dashboard"
+            ? "Overview"
+            : activeModule.replace(/-/g, " ")}
         </p>
 
         <div className="flex items-center gap-x-[30px] justify-end">

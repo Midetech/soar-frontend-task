@@ -7,19 +7,21 @@ import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Input } from "./ui/input";
 import UserCard from "./UserCard";
+import { toast } from "sonner";
 
-export default function UserScroller({
+export default function UsersComponent({
   users,
   activeUser,
   setActiveUser,
 }: {
   users: User[];
-  activeUser: string | null;
-  setActiveUser: React.Dispatch<React.SetStateAction<string | null>>;
+  activeUser: User | null;
+  setActiveUser: React.Dispatch<React.SetStateAction<User | null>>;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [amount, setAmount] = useState<string>("");
 
   const scroll = (dir: "left" | "right") => {
     if (scrollRef.current) {
@@ -63,6 +65,24 @@ export default function UserScroller({
     };
   }, []);
 
+  const handleSend = () => {
+    if (!activeUser) {
+      toast.error("Please select a user to send money to");
+      return;
+    }
+    if (!amount) {
+      toast.error("Please enter an amount");
+      return;
+    }
+    setTimeout(() => {
+      toast.success(`You have sent ${amount} to ${activeUser?.name}`, {
+        description: "Transaction successful",
+        duration: 3000,
+      });
+      setAmount("");
+    }, 500);
+  };
+
   return (
     <Card className="w-full shadow-sm lg:h-[276px] col-span-1 py-[35px] px-[25px]">
       <div className="flex items-center justify-between relative">
@@ -103,9 +123,17 @@ export default function UserScroller({
             type="number"
             placeholder="0.00"
             className="bg-transparent text-[#7a88b1] text-xl w-24 text-center outline-none border-none focus-visible:outline-none focus-visible:ring-0 focus-visible:border-none shadow-none h-full"
-            defaultValue="525.50"
+            value={amount}
+            onChange={(e) => {
+              const value = e.target.value;
+
+              setAmount(value);
+            }}
           />
-          <Button className="bg-black text-white flex items-center gap-2 px-4 py-2 rounded-full w-[125px]">
+          <Button
+            onClick={handleSend}
+            className="bg-black text-white flex items-center gap-2 px-4 py-2 rounded-full w-[125px]"
+          >
             Send <Send size={16} />
           </Button>
         </div>
