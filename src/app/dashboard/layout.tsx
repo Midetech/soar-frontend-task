@@ -12,6 +12,13 @@ const DashboardLayout = ({
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+
+  React.useEffect(() => {
+    const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+    if (!isMobile) {
+      setIsOpen(false);
+    }
+  }, []);
   return (
     <div className="dashboard-layout">
       <div className="flex">
