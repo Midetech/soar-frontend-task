@@ -78,7 +78,7 @@ const Header = () => {
         </div>
       </div>
 
-      <MobileNav {...{ activeModule, toggleSidebar }} />
+      <MobileNav />
     </>
   );
 };
