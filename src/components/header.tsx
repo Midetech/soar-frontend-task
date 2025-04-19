@@ -10,10 +10,6 @@ const Header = () => {
   const { state, dispatch } = useApp();
   const { activeModule } = state;
 
-  const toggleSidebar = () => {
-    dispatch({ type: "TOGGLE_SIDEBAR" });
-  };
-
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: "SET_SEARCH_QUERY", payload: e.target.value });
   };
