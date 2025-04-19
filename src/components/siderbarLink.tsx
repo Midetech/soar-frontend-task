@@ -1,5 +1,4 @@
 import { cn } from "components/lib/utils";
-import Link from "next/link";
 import { IconProps } from "./icons";
 
 const SiderbarLink = ({
@@ -17,10 +16,10 @@ const SiderbarLink = ({
   const Icon = link.icon;
 
   return (
-    <Link href={link.url}>
+    <a href={link.url}>
       <div
         className={cn(
-          "w-[250px] h-[60px] text-lg flex gap-[26px] hover:text-[#232323]/80",
+          "xl:w-[250px] w-[210px] h-[60px] xl:text-lg text-sm flex gap-[26px] hover:text-[#232323]/80",
           !isActive ? "text-[#B1B1B1]" : "text-[#232323]"
         )}
       >
@@ -31,12 +30,12 @@ const SiderbarLink = ({
           )}
         />
 
-        <div className="flex items-center gap-[26px] ml-[30px]">
+        <div className="flex items-center gap-[26px] xl:ml-[30px]">
           <Icon className="shrink-0" />
           <span className="font-medium ">{link.label}</span>
         </div>
       </div>
-    </Link>
+    </a>
   );
 };
 

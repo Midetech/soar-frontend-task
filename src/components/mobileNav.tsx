@@ -2,12 +2,24 @@ import React from "react";
 import { Icons } from "./icons";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
-const MobileNav = ({ activeModule }: { activeModule: string }) => {
+const MobileNav = ({
+  activeModule,
+  toggleSidebar,
+}: {
+  activeModule: string;
+  toggleSidebar: () => void;
+}) => {
   return (
     <div className="h-[140px] w-full lg:hidden flex flex-col justify-center items-center gap-y-[25px] bg-white border-b-[#E6EFF5]  md:px-10 px-4 ">
       <div className="w-full flex justify-between items-center bg-white">
-        <Icons.HamburgerIcon />
+        <Button
+          onClick={toggleSidebar}
+          className="h-[50px] w-[50px] bg-transparent shadow-none rounded-[40px]"
+        >
+          <Icons.HamburgerIcon />
+        </Button>
         <p className="xl:text-[28px] text-xl text-[#343C6A] font-semibold capitalize">
           {activeModule === "dashboard"
             ? "Overview"

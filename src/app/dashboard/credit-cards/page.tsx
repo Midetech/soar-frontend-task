@@ -47,13 +47,16 @@ const Page = () => {
       variants={containerVariants}
       className="py-6 lg:px-10 md:px-10 px-4 flex xl:justify-normal justify-center flex-wrap gap-[20px] overflow-auto"
     >
-      {cards?.map((card: CardDetail) => (
-        <CreditCard
-          className="md:w-[330px] w-[344px] xl:w-[355px]"
-          key={card.id}
-          {...{ card }}
-        />
-      ))}
+      <AnimatePresence mode="wait">
+        {cards?.map((card: CardDetail) => (
+          <motion.div key={card.id} variants={itemVariants}>
+            <CreditCard
+              className="md:w-[330px] w-[344px] xl:w-[355px]"
+              {...{ card }}
+            />
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </motion.div>
   );
 };

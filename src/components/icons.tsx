@@ -426,8 +426,8 @@ export const Icons = {
       viewBox="0 0 44 30"
       fill="none"
     >
-      <circle cx="15" cy="15" r="15" fill="#9199AF" fill-opacity="0.5" />
-      <circle cx="29" cy="15" r="15" fill="#9199AF" fill-opacity="0.5" />
+      <circle cx="15" cy="15" r="15" fill="#9199AF" fillOpacity="0.5" />
+      <circle cx="29" cy="15" r="15" fill="#9199AF" fillOpacity="0.5" />
     </svg>
   ),
 

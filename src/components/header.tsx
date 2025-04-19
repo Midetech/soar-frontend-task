@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import MobileNav from "./mobileNav";
 
-const Header = () => {
+const Header = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
   const pathname = usePathname();
   const activeModule =
     pathname.split("/").length > 2
@@ -32,10 +32,10 @@ const Header = () => {
           </div>
 
           <div className="hidden lg:flex items-center gap-x-[30px]">
-            <Button className="h-[50px] w-[50px] bg-[#F5F7FA] rounded-[40px]">
+            <Button className="h-[50px] w-[50px] bg-[#F5F7FA] hover:bg-[#E7EDFF]/90  rounded-[40px]">
               <Icons.OutlineSettingsIcon className="xl:size-[25px]" />
             </Button>
-            <Button className="h-[50px] w-[50px] bg-[#F5F7FA] rounded-[40px]">
+            <Button className="h-[50px] w-[50px] bg-[#F5F7FA] hover:bg-[#E7EDFF]/90  rounded-[40px]">
               <Icons.NotificationIcon className="xl:size-[25px]" />
             </Button>
           </div>
@@ -46,7 +46,7 @@ const Header = () => {
         </div>
       </div>
 
-      <MobileNav activeModule={activeModule} />
+      <MobileNav {...{ activeModule, toggleSidebar }} />
     </>
   );
 };
