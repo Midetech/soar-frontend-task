@@ -31,8 +31,6 @@ ChartJS.register(
 const WeeklyActivity = () => {
   const { data } = useSWR("/api/chart/weekly-activity", fetcher);
 
-  console.log(data);
-
   const weeklyData = {
     labels: data?.labels,
     datasets: [
@@ -41,14 +39,16 @@ const WeeklyActivity = () => {
         data: data?.data?.withdraw,
         backgroundColor: "#232323",
         borderRadius: 6,
-        barThickness: 20,
+        barPercentage: 0.4,
+        categoryPercentage: 0.5,
       },
       {
         label: "Deposit",
         data: data?.data?.deposit,
         backgroundColor: "#396AFF",
         borderRadius: 6,
-        barThickness: 20,
+        barPercentage: 0.4,
+        categoryPercentage: 0.5,
       },
     ],
   };
@@ -67,6 +67,7 @@ const WeeklyActivity = () => {
         },
       },
       y: {
+        beginAtZero: true,
         grid: {
           color: "#f0f0f0",
           drawBorder: false,
@@ -107,6 +108,7 @@ const WeeklyActivity = () => {
         padding: 10,
         borderColor: "#e0e0e0",
         borderWidth: 1,
+        spacing: 10,
         callbacks: {
           title: function (context: { label: any }[]) {
             return context[0].label;
