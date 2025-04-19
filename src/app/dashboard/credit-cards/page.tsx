@@ -4,6 +4,7 @@ import { CardDetail } from "components/interfaces/card";
 import useSWR from "swr";
 import { motion, AnimatePresence } from "framer-motion";
 import { fetcher } from "components/services/http-requests";
+import React from "react";
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -27,6 +28,14 @@ const itemVariants = {
 
 const Page = () => {
   const { data: cards } = useSWR("/api/cards", fetcher);
+  const [activeCard, setActiveCard] = React.useState<number | null>(null);
+
+  React.useEffect(() => {
+    if (cards) {
+      setActiveCard(cards[0]?.id);
+    }
+  }, [cards]);
+
   return (
     <motion.div
       initial="hidden"
@@ -39,7 +48,7 @@ const Page = () => {
           <motion.div key={card.id} variants={itemVariants}>
             <CreditCard
               className="md:w-[330px] w-[344px] xl:w-[355px]"
-              {...{ card }}
+              {...{ card, activeCard, setActiveCard }}
             />
           </motion.div>
         ))}
