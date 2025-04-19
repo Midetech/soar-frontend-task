@@ -87,7 +87,7 @@ export default function UsersComponent({
   };
 
   return (
-    <Card className="w-full lg:h-[276px] col-span-1 py-[35px] px-[25px]">
+    <Card className="w-full lg:h-[276px] col-span-1 py-[35px] lg:px-[25px] px-2">
       <div className="flex items-center justify-between relative">
         {canScrollLeft && (
           <div>
@@ -125,7 +125,7 @@ export default function UsersComponent({
           <Input
             type="number"
             placeholder="0.00"
-            className="bg-transparent text-[#7a88b1] text-xl w-full text-center outline-none border-none focus-visible:outline-none focus-visible:ring-0 focus-visible:border-none shadow-none h-full "
+            className="bg-transparent text-[#7a88b1] text-xl lg:w-full  w-[100px] text-center outline-none border-none focus-visible:outline-none focus-visible:ring-0 focus-visible:border-none shadow-none h-full "
             value={amount}
             onChange={(e) => {
               const value = e.target.value;
