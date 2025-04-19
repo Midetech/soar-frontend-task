@@ -31,6 +31,8 @@ import { cn } from "components/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Calendar } from "./ui/calendar";
 import { format } from "date-fns";
+import { toast } from "sonner";
+import { useState } from "react";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -82,6 +84,7 @@ const ProfileForm = ({
   tabVariants: any;
   setImageUrl: (url: string) => void;
 }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -98,9 +101,12 @@ const ProfileForm = ({
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    setIsSubmitting(true);
     console.log(values);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      toast.success("Profile updated successfully!");
+    }, 2000);
   }
 
   const handleImageUpload = (e: any) => {
@@ -265,8 +271,16 @@ const ProfileForm = ({
                 )
               )}
             </div>
-            <Button className="w-[190px] h-[50px] float-right" type="submit">
-              Save
+            <Button
+              disabled={isSubmitting}
+              className="w-[190px] h-[50px] float-right"
+              type="submit"
+            >
+              {isSubmitting ? (
+                <Icons.spinner className="animate-spin" />
+              ) : (
+                "Save"
+              )}
             </Button>
           </form>
         </Form>
