@@ -144,7 +144,7 @@ export default function UsersComponent({
             ) : (
               <>
                 Send
-                <Send size={16} />
+                <Icons.SendIcon />
               </>
             )}
           </Button>
