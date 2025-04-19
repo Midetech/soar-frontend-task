@@ -16,7 +16,7 @@ const UserCard = ({
     <div
       onClick={() => setActiveUser(user)}
       className={cn(
-        "flex justify-center items-center flex-col w-[94] ",
+        "flex justify-center items-center flex-col w-[94] cursor-pointer",
         activeUser?.id === user.id ? "font-bold" : "font-normal"
       )}
     >
