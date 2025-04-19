@@ -24,24 +24,11 @@ const itemVariants = {
   },
 };
 
-const cardVariants = {
-  hover: {
-    y: -5,
-    boxShadow: "0 10px 20px rgba(0,0,0,0.05)",
-    transition: { type: "spring", stiffness: 400, damping: 17 },
-    borderRadius: "25px",
-  },
-};
-
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 const Page = () => {
-  const { data: cards, isLoading: isCardsLoading } = useSWR(
-    "/api/cards",
-    fetcher
-  );
+  const { data: cards } = useSWR("/api/cards", fetcher);
   return (
     <motion.div
-      // className="py-6 lg:px-10 md:px-10 px-4 space-y-5 h-[80dvh] xl:h-[85dvh] overflow-auto"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
