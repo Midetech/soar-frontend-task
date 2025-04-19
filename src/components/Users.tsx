@@ -1,7 +1,7 @@
 "use client";
 
 import { User } from "components/interfaces/user";
-import { ChevronLeft, ChevronRight, Send } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Icons } from "./icons";
