@@ -49,3 +49,6 @@ export const getMethod = async ({ queryKey, }: { queryKey: [string, { route: str
         return data.data;
     } return data
 };
+
+
+export const fetcher = (url: string) => fetch(url).then((res) => res.json());

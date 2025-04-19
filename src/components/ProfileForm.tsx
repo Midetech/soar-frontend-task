@@ -26,6 +26,11 @@ import {
 } from "./ui/select";
 import { motion } from "framer-motion";
 import { Label } from "./ui/label";
+import { CalendarIcon } from "lucide-react";
+import { cn } from "components/lib/utils";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Calendar } from "./ui/calendar";
+import { format } from "date-fns";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -53,16 +58,7 @@ const formSchema = z.object({
   address: z.string().min(5, {
     message: "Present address must be at least 5 characters.",
   }),
-  dateOfBirth: z.string().refine(
-    (value) => {
-      const date = new Date(value);
-      const age = new Date().getFullYear() - date.getFullYear();
-      return age < 18;
-    },
-    {
-      message: "Age must be less than 18.",
-    }
-  ),
+  dateOfBirth: z.date(),
   city: z.string().min(2, {
     message: "City must be at least 2 characters.",
   }),
@@ -89,15 +85,15 @@ const ProfileForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      name: "",
-      email: "",
-      address: "",
-      permanentAddress: "",
-      city: "",
-      postalCode: "",
-      country: "",
-      dateOfBirth: "",
+      username: "Charlene Reed",
+      name: "Charlene Reed",
+      email: "charlenereed@gmail.com",
+      address: "San Jose, California, USA",
+      permanentAddress: "San Jose, California, USA",
+      city: "San Jose",
+      postalCode: "45962",
+      country: "US",
+      dateOfBirth: new Date("1990-01-25"),
     },
   });
 
@@ -121,10 +117,10 @@ const ProfileForm = ({
       animate="visible"
       exit="exit"
       variants={tabVariants}
-      className="w-full h-full flex xl:flex-row flex-col gap-x-[57px]"
+      className="w-full h-full flex xl:flex-row flex-col gap-y-[22px] pt-[54px] gap-x-[57px]"
     >
-      <div className="size-[98px] relative">
-        <Avatar className="xl:size-[94px] size-[50px]">
+      <div className="size-[98px] relative self-center lg:self-auto">
+        <Avatar className="xl:size-[94px] size-[100px]">
           <AvatarImage
             src={
               typeof imageUrl === "string"
@@ -144,7 +140,7 @@ const ProfileForm = ({
           accept="image/*"
         />
         <Label htmlFor="image">
-          <div className="size-[30px] rounded-[30px] absolute xl:top-16 -right-1.5 bg-black flex justify-center items-center cursor-pointer hover:bg-[#1E1E1E] transition-all duration-200">
+          <div className="size-[30px] rounded-[30px] absolute xl:top-16 top-16 -right-1.5 bg-black flex justify-center items-center cursor-pointer hover:bg-[#1E1E1E] transition-all duration-200">
             <Icons.PenIcon />
           </div>
         </Label>
@@ -182,13 +178,63 @@ const ProfileForm = ({
                           <SelectContent className="h-[350px]">
                             <SelectGroup>
                               {countries.map((country, idx) => (
-                                <SelectItem key={idx + 1} value={country}>
-                                  {country}
+                                <SelectItem key={idx + 1} value={country.value}>
+                                  {country.label}
                                 </SelectItem>
                               ))}
                             </SelectGroup>
                           </SelectContent>
                         </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ) : formItem.name === "dateOfBirth" ? (
+                  <FormField
+                    control={form.control}
+                    name="dateOfBirth"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Date of birth</FormLabel>
+                        <Popover>
+                          <PopoverTrigger
+                            asChild
+                            className="w-full h-[50px] text-[#718EBF]"
+                          >
+                            <FormControl>
+                              <Button
+                                variant={"outline"}
+                                className={cn(
+                                  "w-full pl-3 text-left font-normal col-span-1",
+                                  !field.value && "text-muted-foreground"
+                                )}
+                              >
+                                {field.value ? (
+                                  format(field.value, "dd MMMM yyyy")
+                                ) : (
+                                  <span>Pick a date</span>
+                                )}
+                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent
+                            className="col-span-1 p-0"
+                            align="start"
+                          >
+                            <Calendar
+                              mode="single"
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              disabled={(date) =>
+                                date > new Date() ||
+                                date < new Date("1900-25-01")
+                              }
+                              initialFocus
+                              className="col-span-1"
+                            />
+                          </PopoverContent>
+                        </Popover>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -206,7 +252,7 @@ const ProfileForm = ({
                         <FormControl>
                           <Input
                             placeholder={formItem.placeholder}
-                            className="rounded-[15px]"
+                            className="rounded-[15px] text-[#718EBF]"
                             type={formItem.type}
                             {...field}
                           />

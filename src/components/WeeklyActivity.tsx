@@ -13,6 +13,8 @@ import {
 import { Bar } from "react-chartjs-2";
 import Typography from "./Typography";
 import { Card } from "./ui/card";
+import { fetcher } from "components/services/http-requests";
+import useSWR from "swr";
 
 // Register Chart.js components
 ChartJS.register(
@@ -27,19 +29,23 @@ ChartJS.register(
 );
 
 const WeeklyActivity = () => {
+  const { data } = useSWR("/api/chart/weekly-activity", fetcher);
+
+  console.log(data);
+
   const weeklyData = {
-    labels: ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"],
+    labels: data?.labels,
     datasets: [
       {
         label: "Withdraw",
-        data: [470, 340, 320, 470, 150, 380, 390],
+        data: data?.data?.withdraw,
         backgroundColor: "#232323",
         borderRadius: 6,
         barThickness: 20,
       },
       {
         label: "Deposit",
-        data: [230, 120, 260, 350, 230, 230, 330],
+        data: data?.data?.deposit,
         backgroundColor: "#396AFF",
         borderRadius: 6,
         barThickness: 20,

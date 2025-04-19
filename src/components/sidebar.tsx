@@ -26,27 +26,39 @@ const Siderbar = ({
       animate={{ x: !isMobile ? 0 : isOpen ? "0%" : "-100%" }}
       exit={{ x: "-100%" }}
       transition={{ type: "tween", duration: 0.3 }}
+      role="navigation"
+      aria-label="Main navigation"
     >
       <div className="flex gap-[20px] font-extrabold text-[#343C6A] xl:w-[250px] w-[210px] h-[100px] xl:pl-[30px]">
         <div className={cn("w-1.5 h-[60px] rounded-r-[10px] shrink-0")} />
         <div className="flex items-center gap-[16px] ">
-          <Icons.TaskIcon />
+          <Icons.TaskIcon aria-hidden="true" />
 
-          <p className="xl:text-[25px] text-base">Soar Task</p>
+          <h2 className="xl:text-[25px] text-base">Soar Task</h2>
         </div>
       </div>
-      {sidebarLinks.map((link) => (
-        <SiderbarLink
-          isActive={pathname === link.url}
-          key={link.id}
-          {...{ link }}
-        />
-      ))}
+      <nav aria-label="Navigation menu">
+        {sidebarLinks.map((link) => (
+          <SiderbarLink
+            isActive={pathname === link.url}
+            key={link.id}
+            {...{ link }}
+          />
+        ))}
+      </nav>
 
       {isOpen && (
         <div
           className="fixed inset-0 left-[210px] bg-black/50 lg:hidden -z-50"
           onClick={toggleSidebar}
+          role="button"
+          aria-label="Close sidebar"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              toggleSidebar();
+            }
+          }}
         ></div>
       )}
     </motion.div>

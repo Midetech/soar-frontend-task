@@ -1,9 +1,9 @@
+import { CardDetail } from "components/interfaces/card";
+import { cn, maskifyCreditCard } from "components/lib/utils";
 import React from "react";
+import { Icons } from "./icons";
 import Typography from "./Typography";
 import { Card } from "./ui/card";
-import { cn } from "components/lib/utils";
-import { CardDetail } from "components/interfaces/card";
-import { Icons } from "./icons";
 
 const CreditCard = ({
   card,
@@ -93,7 +93,7 @@ const CreditCard = ({
         )}
       >
         <Typography
-          text={card.cardNumber}
+          text={maskifyCreditCard(card.cardNumber)}
           className="lg:text-[22px] text-[15px] font-semibold"
         />
         <Icons.MasterCard className="xl:size-[44px] w-[27px]" />

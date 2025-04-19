@@ -3,11 +3,12 @@
 import { User } from "components/interfaces/user";
 import { ChevronLeft, ChevronRight, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
+import { Icons } from "./icons";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Input } from "./ui/input";
 import UserCard from "./UserCard";
-import { toast } from "sonner";
 
 export default function UsersComponent({
   users,
@@ -64,7 +65,7 @@ export default function UsersComponent({
       window.removeEventListener("resize", checkScroll);
     };
   }, []);
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleSend = () => {
     if (!activeUser) {
       toast.error("Please select a user to send money to");
@@ -74,12 +75,14 @@ export default function UsersComponent({
       toast.error("Please enter an amount");
       return;
     }
+    setIsLoading(true);
     setTimeout(() => {
-      toast.success(`You have sent ${amount} to ${activeUser?.name}`, {
+      toast.success(`You have sent $${amount} to ${activeUser?.name}`, {
         description: "Transaction successful",
         duration: 3000,
       });
       setAmount("");
+      setIsLoading(false);
     }, 500);
   };
 
@@ -118,11 +121,11 @@ export default function UsersComponent({
 
       <div className="flex items-center justify-between rounded-full px-4 py-2">
         <span className="text-[#7a88b1] text-sm">Write Amount</span>
-        <div className="flex justify-between items-center gap-2 xl:w-[256px] bg-[#EDF1F7] rounded-[50px]">
+        <div className="flex justify-between items-center xl:w-[256px] bg-[#EDF1F7] rounded-[50px]">
           <Input
             type="number"
             placeholder="0.00"
-            className="bg-transparent text-[#7a88b1] text-xl w-24 text-center outline-none border-none focus-visible:outline-none focus-visible:ring-0 focus-visible:border-none shadow-none h-full"
+            className="bg-transparent text-[#7a88b1] text-xl w-full text-center outline-none border-none focus-visible:outline-none focus-visible:ring-0 focus-visible:border-none shadow-none h-full "
             value={amount}
             onChange={(e) => {
               const value = e.target.value;
@@ -132,9 +135,18 @@ export default function UsersComponent({
           />
           <Button
             onClick={handleSend}
-            className="bg-black text-white flex items-center gap-2 px-4 py-2 rounded-full w-[125px]"
+            type="button"
+            disabled={isLoading}
+            className="bg-black text-white flex items-center gap-2 px-4 py-2 rounded-full lg:w-[125px] w-[90px]"
           >
-            Send <Send size={16} />
+            {isLoading ? (
+              <Icons.spinner className="animate-spin" />
+            ) : (
+              <>
+                <Send size={16} />
+                Send
+              </>
+            )}
           </Button>
         </div>
       </div>

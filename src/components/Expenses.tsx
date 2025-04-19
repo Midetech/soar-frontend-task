@@ -12,6 +12,8 @@ import {
 } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import useSWR from "swr";
+import { fetcher } from "components/services/http-requests";
 // Register Chart.js components
 ChartJS.register(
   CategoryScale,
@@ -26,11 +28,12 @@ ChartJS.register(
 );
 
 const ExpenseDashboard = () => {
+  const { data } = useSWR("/api/chart/expenses", fetcher);
   const pieData = {
-    labels: [" Entertainment", "Bill Expense", "Others", "Investment"],
+    labels: data?.labels,
     datasets: [
       {
-        data: [20, 15, 35, 30],
+        data: data?.data,
         backgroundColor: [
           "#343C6A", // Blue for Entertainment
           "#FC7900", // Orange for Bill Expense

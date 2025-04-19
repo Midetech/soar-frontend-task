@@ -15,6 +15,7 @@ import SkeletonLoader from "components/components/SkeletonLoader";
 import BalanceHistory from "components/components/BalanceHistory";
 import ExpenseDashboard from "components/components/Expenses";
 import { User } from "components/interfaces/user";
+import { fetcher } from "components/services/http-requests";
 
 // Animation variants
 const containerVariants = {
@@ -46,8 +47,6 @@ const cardVariants = {
     borderRadius: "25px",
   },
 };
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const Page = () => {
   const { data: cards, isLoading: isCardsLoading } = useSWR(
@@ -148,7 +147,7 @@ const Page = () => {
                 className="w-full h-64 rounded-lg bg-gray-100 animate-pulse"
               />
             ) : (
-              <Card className="xl:p-6 md:p-4 p-2 flex flex-col xl:gap-y-[20px] gap-y-[15px] bg-white xl:h-[235px] h-[214px] overflow-auto">
+              <Card className="xl:p-6 md:p-4 p-2 flex flex-col xl:gap-y-[20px] gap-y-[15px] bg-white xl:h-[235px] md:h-[320px] h-[214px] overflow-auto">
                 <AnimatePresence>
                   {transactions?.map(
                     (transaction: Transaction, index: number) => (
@@ -170,51 +169,52 @@ const Page = () => {
                             damping: 17,
                           },
                         }}
-                        className="h-[55px] w-full flex items-center gap-x-[17px] px-2 rounded-md"
+                        className="h-[55px] w-full flex items-center justify-between gap-x-[17px] px-2 rounded-md"
                       >
-                        <motion.div
-                          className="size-[50px] rounded-full flex justify-center items-center"
-                          style={{
-                            backgroundColor:
-                              colors[
-                                transaction.channel as keyof typeof colors
-                              ],
-                          }}
-                          whileHover={{
-                            scale: 1.05,
-                            transition: {
-                              type: "spring",
-                              stiffness: 400,
-                              damping: 17,
-                            },
-                          }}
-                        >
-                          {transaction.channel === "paypal" ? (
-                            <Icons.PayPal className="md:size-5 size-5" />
-                          ) : transaction.channel === "bank" ? (
-                            <Icons.DollarIcon className="md:size-5 size-5" />
-                          ) : (
-                            <Icons.CardIcon className="md:size-5 size-5" />
-                          )}
-                        </motion.div>
+                        <motion.div className="flex items-center gap-x-3">
+                          <motion.div
+                            className="size-[50px] rounded-full flex justify-center items-center"
+                            style={{
+                              backgroundColor:
+                                colors[
+                                  transaction.channel as keyof typeof colors
+                                ],
+                            }}
+                            whileHover={{
+                              scale: 1.05,
+                              transition: {
+                                type: "spring",
+                                stiffness: 400,
+                                damping: 17,
+                              },
+                            }}
+                          >
+                            {transaction.channel === "paypal" ? (
+                              <Icons.PayPal className="md:size-5 size-5" />
+                            ) : transaction.channel === "bank" ? (
+                              <Icons.DollarIcon className="md:size-5 size-5" />
+                            ) : (
+                              <Icons.CardIcon className="md:size-5 size-5" />
+                            )}
+                          </motion.div>
 
-                        <div className="flex flex-col">
-                          <Typography
-                            className="xl:text-base sm:text-sm text-sm text-[#232323]"
-                            text={transaction.title}
-                          />
-                          <Typography
-                            className="text-[#718EBF] xl:text-[15px] sm:text-sm text-[12px] font-normal"
-                            text={new Date(transaction.date).toLocaleDateString(
-                              "en-US",
-                              {
+                          <div className="flex flex-col">
+                            <Typography
+                              className="xl:text-base sm:text-sm text-sm text-[#232323]"
+                              text={transaction.title}
+                            />
+                            <Typography
+                              className="text-[#718EBF] xl:text-[15px] sm:text-sm text-[12px] font-normal"
+                              text={new Date(
+                                transaction.date
+                              ).toLocaleDateString("en-US", {
                                 day: "numeric",
                                 month: "long",
                                 year: "numeric",
-                              }
-                            )}
-                          />
-                        </div>
+                              })}
+                            />
+                          </div>
+                        </motion.div>
 
                         <motion.div
                           initial={{ scale: 0.95 }}
@@ -244,17 +244,20 @@ const Page = () => {
       </motion.div>
 
       <motion.div
-        className="grid xl:grid-cols-3 grid-cols-1 gap-6"
+        className="grid xl:grid-cols-3  lg:grid-cols-2 grid-cols-1 gap-6"
         variants={containerVariants}
       >
-        <motion.div variants={itemVariants} className="col-span-2">
+        <motion.div
+          variants={itemVariants}
+          className="xl:col-span-2 lg:col-span-1 col-span-2"
+        >
           <AnimatePresence mode="wait">
             <WeeklyActivity />
           </AnimatePresence>
         </motion.div>
 
         <motion.div
-          className="flex flex-col gap-y-5 xl:col-span-1 col-span-2"
+          className="flex flex-col gap-y-5 xl:col-span-1 col-span-2  lg:col-span-1"
           variants={itemVariants}
         >
           <Typography className="text-[#343C6A]" text="Expense Statistics" />
@@ -268,39 +271,29 @@ const Page = () => {
       </motion.div>
 
       <motion.div
-        className="grid xl:grid-cols-5 gap-6"
+        className="grid xl:grid-cols-5 lg:grid-cols-2 gap-6"
         variants={containerVariants}
       >
         <motion.div
-          className="flex flex-col gap-y-5 xl:col-span-2"
+          className="flex flex-col gap-y-5 xl:col-span-2 lg:col-span-1"
           variants={itemVariants}
         >
           <Typography className="text-[#343C6A]" text="Quick Transfer" />
 
           <AnimatePresence mode="wait">
-            {isUsersLoading ? (
-              <motion.div
-                key="users-skeleton"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="w-full h-32 rounded-lg bg-gray-100 animate-pulse"
-              />
-            ) : (
-              <motion.div
-                key="users-content"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <UsersComponent {...{ users, activeUser, setActiveUser }} />
-              </motion.div>
-            )}
+            <motion.div
+              key="users-content"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <UsersComponent {...{ users, activeUser, setActiveUser }} />
+            </motion.div>
           </AnimatePresence>
         </motion.div>
 
         <motion.div
-          className="flex flex-col gap-y-5 xl:col-span-3"
+          className="flex flex-col gap-y-5 xl:col-span-3  lg:col-span-1"
           variants={itemVariants}
         >
           <Typography className="text-[#343C6A]" text="Balance History" />

@@ -8,7 +8,9 @@ import {
   PointElement,
   Tooltip,
 } from "chart.js";
+import { fetcher } from "components/services/http-requests";
 import { Line } from "react-chartjs-2";
+import useSWR from "swr";
 
 // Register Chart.js components
 ChartJS.register(
@@ -22,14 +24,14 @@ ChartJS.register(
 );
 
 const LineChart = () => {
-  const labels = ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan"];
+  const { data: history } = useSWR("/api/chart/balance-history", fetcher);
 
   // Sample data - replace with your actual values
   const data = {
-    labels,
+    labels: history?.labels,
     datasets: [
       {
-        data: [120, 330, 250, 480, 770, 220, 430, 570, 240, 630],
+        data: history?.data,
         fill: true,
         backgroundColor: "rgba(45, 96, 255, 0.25)",
         borderColor: "rgb(65, 105, 225)",

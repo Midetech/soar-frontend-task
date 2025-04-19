@@ -15,32 +15,58 @@ const Header = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
 
   return (
     <>
-      <div className="h-[100px]  bg-white lg:flex items-center gap-x-[85px] justify-between lg:px-10 md:px-16 px-4 border-b border-b-[#E6EFF5] w-full sticky top-0 z-10 hidden">
-        <p className="xl:text-[28px] text-xl text-[#343C6A] font-semibold capitalize">
+      <div
+        className="h-[100px]  bg-white lg:flex items-center gap-x-[85px] justify-between lg:px-10 md:px-16 px-4 border-b border-b-[#E6EFF5] w-full sticky top-0 z-10 hidden"
+        role="banner"
+      >
+        <h1 className="xl:text-[28px] text-xl text-[#343C6A] font-semibold capitalize">
           {activeModule === "dashboard"
             ? "Overview"
             : activeModule.replace(/-/g, " ")}
-        </p>
+        </h1>
 
         <div className="flex items-center gap-x-[30px] justify-end">
-          <div className="h-[50px] lg:w-[255px] bg-[#F5F7FA] rounded-[40px] flex items-center px-[25px]">
-            <Icons.SearchIcon />
+          <div
+            className="h-[50px] lg:w-[255px] bg-[#F5F7FA] rounded-[40px] flex items-center px-[25px]"
+            role="search"
+          >
+            <Icons.SearchIcon aria-hidden="true" />
             <Input
               placeholder="Search for something"
               className="text-[15px] text-[#8BA3CB] placeholder:text-[#8BA3CB] w-full bg-transparent border-none focus-visible:outline-none focus-visible:ring-0 focus-visible:border-none shadow-none h-full"
+              aria-label="Search"
             />
           </div>
 
           <div className="hidden lg:flex items-center gap-x-[30px]">
-            <Button className="h-[50px] w-[50px] bg-[#F5F7FA] hover:bg-[#E7EDFF]/90  rounded-[40px]">
-              <Icons.OutlineSettingsIcon className="xl:size-[25px]" />
+            <Button
+              className="h-[50px] w-[50px] bg-[#F5F7FA] hover:bg-[#E7EDFF]/90  rounded-[40px]"
+              aria-label="Settings"
+            >
+              <Icons.OutlineSettingsIcon
+                className="xl:size-[25px]"
+                aria-hidden="true"
+              />
             </Button>
-            <Button className="h-[50px] w-[50px] bg-[#F5F7FA] hover:bg-[#E7EDFF]/90  rounded-[40px]">
-              <Icons.NotificationIcon className="xl:size-[25px]" />
+            <Button
+              className="h-[50px] w-[50px] bg-[#F5F7FA] hover:bg-[#E7EDFF]/90  rounded-[40px]"
+              aria-label="Notifications"
+            >
+              <Icons.NotificationIcon
+                className="xl:size-[25px]"
+                aria-hidden="true"
+              />
             </Button>
           </div>
-          <Avatar className="xl:size-[60px] size-[35px]">
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          <Avatar
+            className="xl:size-[60px] size-[35px]"
+            role="img"
+            aria-label="User profile"
+          >
+            <AvatarImage
+              src="https://github.com/shadcn.png"
+              alt="User profile picture"
+            />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </div>

@@ -3,6 +3,7 @@ import CreditCard from "components/components/CreditCard";
 import { CardDetail } from "components/interfaces/card";
 import useSWR from "swr";
 import { motion, AnimatePresence } from "framer-motion";
+import { fetcher } from "components/services/http-requests";
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -24,7 +25,6 @@ const itemVariants = {
   },
 };
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
 const Page = () => {
   const { data: cards } = useSWR("/api/cards", fetcher);
   return (
