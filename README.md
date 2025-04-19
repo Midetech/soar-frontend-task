@@ -9,12 +9,11 @@ A modern web application built with Next.js, TypeScript, and Tailwind CSS.
 - **Runtime**: Node.js
 - **UI Library**: React 18.2.0
 - **Styling**: Tailwind CSS 4
-- **State Management**: React Query (TanStack Query) & SWR
+- **State Management**: SWR
 - **Form Handling**: React Hook Form with Zod validation
 - **UI Components**: Radix UI
 - **Charts**: Chart.js
 - **Animation**: Framer Motion
-- **HTTP Client**: Axios
 
 ## 📁 Project Structure
 
@@ -84,7 +83,6 @@ src/
 
 - **Data Management**:
 
-  - TanStack Query for server state
   - SWR for data fetching
   - Axios for HTTP requests
 
