@@ -3,7 +3,6 @@ import Link from "next/link";
 import React from "react";
 import CreditCard from "./CreditCard";
 import Typography from "./Typography";
-import { Button } from "./ui/button";
 
 const Cards = ({
   cards,
