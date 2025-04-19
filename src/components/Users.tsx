@@ -143,8 +143,8 @@ export default function UsersComponent({
               <Icons.spinner className="animate-spin" />
             ) : (
               <>
-                <Send size={16} />
                 Send
+                <Send size={16} />
               </>
             )}
           </Button>
