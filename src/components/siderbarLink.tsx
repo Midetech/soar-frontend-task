@@ -24,7 +24,7 @@ const SiderbarLink = ({
       )}
       aria-current={isActive ? "page" : undefined}
     >
-      <div className="flex gap-[26px]">
+      <div className="flex gap-x-4 w-[211px]">
         <div
           className={cn(
             "w-1.5 h-[60px] rounded-r-[10px] shrink-0",
@@ -33,7 +33,7 @@ const SiderbarLink = ({
           aria-hidden="true"
         />
 
-        <div className="flex items-center gap-[26px] xl:ml-[30px]">
+        <div className="flex items-center gap-[26px] xl:ml-[20px]">
           <Icon className="shrink-0" aria-hidden="true" />
           <span className="font-medium">{link.label}</span>
         </div>

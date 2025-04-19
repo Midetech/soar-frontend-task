@@ -1,22 +1,27 @@
 "use client";
-import { usePathname } from "next/navigation";
 import { Icons } from "./icons";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import MobileNav from "./mobileNav";
+import { useApp } from "../contexts/AppContext";
 
-const Header = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
-  const pathname = usePathname();
-  const activeModule =
-    pathname.split("/").length > 2
-      ? pathname.split("/")[2]
-      : pathname.split("/")[1];
+const Header = () => {
+  const { state, dispatch } = useApp();
+  const { activeModule } = state;
+
+  const toggleSidebar = () => {
+    dispatch({ type: "TOGGLE_SIDEBAR" });
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: "SET_SEARCH_QUERY", payload: e.target.value });
+  };
 
   return (
     <>
       <div
-        className="h-[100px]  bg-white lg:flex items-center gap-x-[85px] justify-between lg:px-10 md:px-16 px-4 border-b border-b-[#E6EFF5] w-full sticky top-0 z-10 hidden"
+        className="h-[100px] bg-white lg:flex items-center gap-x-[85px] justify-between lg:px-10 md:px-16 px-4 border-b border-b-[#E6EFF5] w-full sticky top-0 z-10 hidden"
         role="banner"
       >
         <h1 className="xl:text-[28px] text-xl text-[#343C6A] font-semibold capitalize">
@@ -35,12 +40,13 @@ const Header = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
               placeholder="Search for something"
               className="text-[15px] text-[#8BA3CB] placeholder:text-[#8BA3CB] w-full bg-transparent border-none focus-visible:outline-none focus-visible:ring-0 focus-visible:border-none shadow-none h-full"
               aria-label="Search"
+              onChange={handleSearch}
             />
           </div>
 
           <div className="hidden lg:flex items-center gap-x-[30px]">
             <Button
-              className="h-[50px] w-[50px] bg-[#F5F7FA] hover:bg-[#E7EDFF]/90  rounded-[40px]"
+              className="h-[50px] w-[50px] bg-[#F5F7FA] hover:bg-[#E7EDFF]/90 rounded-[40px]"
               aria-label="Settings"
             >
               <Icons.OutlineSettingsIcon
@@ -49,7 +55,7 @@ const Header = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
               />
             </Button>
             <Button
-              className="h-[50px] w-[50px] bg-[#F5F7FA] hover:bg-[#E7EDFF]/90  rounded-[40px]"
+              className="h-[50px] w-[50px] bg-[#F5F7FA] hover:bg-[#E7EDFF]/90 rounded-[40px]"
               aria-label="Notifications"
             >
               <Icons.NotificationIcon

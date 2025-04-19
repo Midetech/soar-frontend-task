@@ -87,7 +87,7 @@ export default function UsersComponent({
   };
 
   return (
-    <Card className="w-full shadow-sm lg:h-[276px] col-span-1 py-[35px] px-[25px]">
+    <Card className="w-full lg:h-[276px] col-span-1 py-[35px] px-[25px]">
       <div className="flex items-center justify-between relative">
         {canScrollLeft && (
           <div>
@@ -100,7 +100,7 @@ export default function UsersComponent({
           </div>
         )}
         <div
-          className="flex xl:gap-[28px] gap-4 overflow-x-auto scroll-smooth no-scrollbar xl:w-[394px] w-[275px]"
+          className="flex xl:gap-[28px] gap-4 overflow-x-auto scroll-smooth no-scrollbar xl:w-[394px] w-[344px]"
           ref={scrollRef}
         >
           {users?.map((user: User) => (
