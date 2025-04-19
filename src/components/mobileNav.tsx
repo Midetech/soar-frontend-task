@@ -3,17 +3,23 @@ import { Icons } from "./icons";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { useApp } from "../contexts/AppContext";
 
-const MobileNav = ({
-  activeModule,
-  toggleSidebar,
-}: {
-  activeModule: string;
-  toggleSidebar: () => void;
-}) => {
+const MobileNav = () => {
+  const { state, dispatch } = useApp();
+  const { activeModule } = state;
+
+  const toggleSidebar = () => {
+    dispatch({ type: "TOGGLE_SIDEBAR" });
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: "SET_SEARCH_QUERY", payload: e.target.value });
+  };
+
   return (
     <div
-      className="h-[140px] w-full lg:hidden flex flex-col justify-center items-center gap-y-[25px] bg-white border-b-[#E6EFF5]  md:px-10 px-4 "
+      className="h-[140px] w-full lg:hidden flex flex-col justify-center items-center gap-y-[25px] bg-white border-b-[#E6EFF5] md:px-10 px-4"
       role="navigation"
       aria-label="Mobile navigation"
     >
@@ -53,6 +59,7 @@ const MobileNav = ({
           placeholder="Search for something"
           className="text-[15px] text-[#8BA3CB] placeholder:text-[#8BA3CB] w-full bg-transparent border-none focus-visible:outline-none focus-visible:ring-0 focus-visible:border-none shadow-none h-full"
           aria-label="Search"
+          onChange={handleSearch}
         />
       </div>
     </div>
