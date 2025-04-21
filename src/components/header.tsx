@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import MobileNav from "./mobileNav";
 import { useApp } from "../contexts/AppContext";
+import Link from "next/link";
 
 const Header = () => {
   const { state, dispatch } = useApp();
@@ -41,15 +42,17 @@ const Header = () => {
           </div>
 
           <div className="hidden lg:flex items-center gap-x-[30px]">
-            <Button
-              className="h-[50px] w-[50px] bg-[#F5F7FA] hover:bg-[#E7EDFF]/90 rounded-[40px]"
-              aria-label="Settings"
-            >
-              <Icons.OutlineSettingsIcon
-                className="xl:size-[25px]"
-                aria-hidden="true"
-              />
-            </Button>
+            <Link href="/dashboard/settings">
+              <Button
+                className="h-[50px] w-[50px] bg-[#F5F7FA] hover:bg-[#E7EDFF]/90 rounded-[40px]"
+                aria-label="Settings"
+              >
+                <Icons.OutlineSettingsIcon
+                  className="xl:size-[25px]"
+                  aria-hidden="true"
+                />
+              </Button>
+            </Link>
             <Button
               className="h-[50px] w-[50px] bg-[#F5F7FA] hover:bg-[#E7EDFF]/90 rounded-[40px]"
               aria-label="Notifications"
